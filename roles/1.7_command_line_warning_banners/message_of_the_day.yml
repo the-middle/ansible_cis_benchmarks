@@ -1,0 +1,59 @@
+- hosts: 
+    - debian
+    - ubuntu
+  become_user: root
+  remote_user: user
+  tasks:
+  - name: "Create motd"
+    become: yes
+    ansible.builtin.template:
+      src: motd.j2
+      dest: /etc/motd
+      owner: root
+      group: root
+      mode: u-x,go-wx
+
+  - name: "Read a motd content"
+    shell: |
+      cat /etc/motd
+    register: file_content
+
+  - name: "Print the motd content to a console"
+    debug:
+      msg: "{{ file_content.stdout }}"
+
+  - name: "Create issue"
+    become: yes
+    ansible.builtin.template:
+      src: issue.j2
+      dest: /etc/issue
+      owner: root
+      group: root
+      mode: u-x,go-wx
+
+  - name: "Read a issue content"
+    shell: |
+      cat /etc/issue
+    register: file_content
+
+  - name: "Print the issue content to a console"
+    debug:
+      msg: "{{ file_content.stdout }}"
+
+  - name: "Create issue.net"
+    become: yes
+    ansible.builtin.template:
+      src: issue.net.j2
+      dest: /etc/issue.net
+      owner: root
+      group: root
+      mode: u-x,go-wx
+
+  - name: "Read a issue.net content"
+    shell: |
+      cat /etc/issue.net
+    register: file_content
+
+  - name: "Print the issue.net content to a console"
+    debug:
+      msg: "{{ file_content.stdout }}"

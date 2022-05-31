@@ -1,0 +1,2 @@
+- import_playbook: roles/1.7_command_line_warning_banners/message_of_the_day.yml
+  tags: msg_day
